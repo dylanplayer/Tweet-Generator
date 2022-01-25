@@ -45,7 +45,28 @@ def frequency(histogram, word):
             if group[0] == word:
                 return group[1]
     return 0
-    
+
+def buildJSON(histogram):
+    import json
+    with open('results.json', 'w') as output:
+        words = []
+        if isinstance(histogram, dict):
+            for key, value in histogram.items():
+                group = {
+                    'word': key,
+                    'amount': value
+                }
+                words.append(group)
+        elif isinstance(histogram, list):
+            for ele in histogram:
+                group = {
+                    'word': ele[0],
+                    'amount': ele[1]
+                }
+                words.append(group)
+        output.write(json.dumps(words))
+
+
 if __name__ == '__main__':
     import time
     import math
@@ -59,4 +80,4 @@ if __name__ == '__main__':
     print('Time to create touple histogram', round((end - start) * 1000, 2), 'ms')
     print('Unique words:', unique_words(d_histogram))
     print('"the" :', frequency(d_histogram, 'the'))
-
+    buildJSON(t_histogram)
