@@ -1,18 +1,18 @@
 
-PUNCTUATION = '''!()-[]{};:'"\,<>./?@#$%^&*_~”“'''
+PUNCTUATION = '''!()-[]{};:'"\,<>./?@#$%^&*_~”“\n'''
 
 def histogram(filename='test_text.txt', type='d'):
     if type == 'd':
         histogram = {}
         words = []
         with open(filename, 'r') as text:
-            for line in text:
-                words += line.split()
-            for raw_word in words:
-                word = ''
-                for char in raw_word.lower():
+            for raw_line in text:
+                line = ''
+                for char in raw_line:
                     if char not in PUNCTUATION:
-                        word += char
+                        line += char
+                words += line.lower().split()
+            for word in words:
                 if word in histogram.keys():
                     histogram[word] += 1
                 else:
@@ -21,24 +21,22 @@ def histogram(filename='test_text.txt', type='d'):
         histogram = []
         words = []
         with open(filename, 'r') as text:
-            for line in text:
-                words += line.split()
-            words.sort()
-            for raw_word in words:
-                word = ''
-                for char in raw_word.lower():
+            for raw_line in text:
+                line = ''
+                for char in raw_line:
                     if char not in PUNCTUATION:
-                        word += char
-                word_found = False
-                for group in histogram:
-                    if group[0] == word:
-                        count = group[1] + 1
-                        histogram.remove(group)
-                        histogram.append((word, count))
-                        word_found = True
-                        break
+                        line += char
+                words += line.lower().split()
+            words.sort()
+            index = -1
+            for word in words:
+                if len(histogram) != 0 and word == histogram[index][0]:
+                    count = histogram[index][1] + 1
+                    del histogram[-1]
+                    histogram.append((word, count))
                 else:
                     histogram.append((word, 1))
+                    index += 1
     return histogram
 
 
