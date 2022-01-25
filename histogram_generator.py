@@ -1,5 +1,5 @@
 
-PUNCTUATION = '''!()-[]{};:'"\,<>./?@#$%^&*_~”“\n'''
+PUNCTUATION = '''!()-[]{};:'"\…,<>./?@#$%‼^&*_~”„“‥\n'''
 
 def histogram(filename='test_text.txt', type='d'):
     words = []
