@@ -1,5 +1,5 @@
 
-PUNCTUATION = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+PUNCTUATION = '''!()-[]{};:'"\,<>./?@#$%^&*_~”“'''
 
 def histogram(filename='test_text.txt', type='d'):
     if type == 'd':
@@ -65,4 +65,4 @@ if __name__ == '__main__':
     end = time.time()
     print('Time to create touple histogram', round((end - start) * 1000, 2), 'ms')
     print('Unique words in histogram:', unique_words(d_histogram))
-    print('Frequency of gatsby in histogram', frequency(d_histogram, 'gatsby'))
+    print('Frequency of the in histogram', frequency(d_histogram, 'the'))
