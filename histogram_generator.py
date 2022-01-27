@@ -1,15 +1,16 @@
 
 PUNCTUATION = '''!()-[]{};:'"\…,<>./?@#$%‼^&*_~”„“‥\n'''
 
-def histogram(filename='test_text.txt', type='d'):
-    words = []
-    with open(filename, 'r') as text:
-            for raw_line in text:
-                line = ''
-                for char in raw_line:
-                    if char not in PUNCTUATION:
-                        line += char
-                words += line.lower().split()
+def histogram(filename='test_text.txt', type='d', sample=[]):
+    words = sample
+    if not len(words) > 0:
+        with open(filename, 'r') as text:
+                for raw_line in text:
+                    line = ''
+                    for char in raw_line:
+                        if char not in PUNCTUATION:
+                            line += char
+                    words += line.lower().split()
     if type == 'd':
         histogram = {}
         for word in words:
