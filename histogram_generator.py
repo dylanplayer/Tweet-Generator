@@ -31,7 +31,6 @@ def histogram(filename='test_text.txt', type='d'):
                 index += 1
     return histogram
 
-
 def unique_words(histogram):
     return len(histogram)
 
@@ -65,7 +64,6 @@ def buildJSON(histogram):
                 }
                 words.append(group)
         output.write(json.dumps(words))
-
 
 if __name__ == '__main__':
     import time
