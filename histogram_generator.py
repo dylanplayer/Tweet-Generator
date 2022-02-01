@@ -1,7 +1,5 @@
-import enchant
 
 PUNCTUATION = '''!()-[]{};:'"\…,<>./?@#$%‼^&*_~”„“‥'''
-d = enchant.Dict("en_US")
 
 def histogram(filename='test_text.txt', type='d', sample=[]):
     words = sample
@@ -19,8 +17,7 @@ def histogram(filename='test_text.txt', type='d', sample=[]):
             if word in histogram.keys():
                 histogram[word] += 1
             else:
-                if d.check(word):
-                    histogram.update({word: 1})
+                histogram.update({word: 1})
     elif type == 't':
         histogram = []
         words.sort()
