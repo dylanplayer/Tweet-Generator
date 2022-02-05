@@ -1,4 +1,5 @@
-from __future__ import division, print_function  # Python 2 and 3 compatibility
+from __future__ import division, print_function
+import random  # Python 2 and 3 compatibility
 
 class Listogram(list):
     """Listogram is a histogram implemented as a subclass of the list type."""
@@ -9,7 +10,6 @@ class Listogram(list):
         # Add properties to track useful word counts for this histogram
         self.types = 0  # Count of distinct word types in this histogram
         self.tokens = 0  # Total count of all word tokens in this histogram
-        # Count words in given list, if any
         if word_list is not None:
             for word in word_list:
                 self.add_count(word)
@@ -33,7 +33,6 @@ class Listogram(list):
         else:
           return 0
 
-
     def __contains__(self, word):
         """Return boolean indicating if given word is in this histogram."""
         index = self._index(word)
@@ -42,13 +41,26 @@ class Listogram(list):
     def _index(self, target):
         """Return the index of entry containing given target word if found in
         this histogram, or None if target word is not found."""
-        # TODO: Implement linear search to find index of entry with target word
         for index in range(len(self)):
           if self[index][0] == target.lower():
             return index
         return None
 
+    def sample(self):
+        """Return a word from this histogram, randomly sampled by weighting
+        each word's probability of being chosen by its observed frequency."""
+        random.shuffle(self)
+        random_number = random.randint(0, self.tokens)
+        running_count = 0
+        for word, count in self:
+            running_count += count
+            if random_number <= running_count:
+                return word
+
+
 def print_histogram(word_list):
+    print()
+    print('Histogram:')
     print('word list: {}'.format(word_list))
     # Create a listogram and display its contents
     histogram = Listogram(word_list)
@@ -57,6 +69,43 @@ def print_histogram(word_list):
     for word in word_list[-2:]:
         freq = histogram.frequency(word)
         print('{!r} occurs {} times'.format(word, freq))
+    print()
+    print_histogram_samples(histogram)
+
+
+def print_histogram_samples(histogram):
+    print('Histogram samples:')
+    # Sample the histogram 10,000 times and count frequency of results
+    samples_list = [histogram.sample() for _ in range(10000)]
+    samples_hist = Listogram(samples_list)
+    print('samples: {}'.format(samples_hist))
+    print()
+    print('Sampled frequency and error from observed frequency:')
+    header = '| word type | observed freq | sampled freq  |  error  |'
+    divider = '-' * len(header)
+    print(divider)
+    print(header)
+    print(divider)
+    # Colors for error
+    green = '\033[32m'
+    yellow = '\033[33m'
+    red = '\033[31m'
+    reset = '\033[m'
+    # Check each word in original histogram
+    for word, count in histogram:
+        # Calculate word's observed frequency
+        observed_freq = count / histogram.tokens
+        # Calculate word's sampled frequency
+        samples = samples_hist.frequency(word)
+        sampled_freq = samples / samples_hist.tokens
+        # Calculate error between word's sampled and observed frequency
+        error = (sampled_freq - observed_freq) / observed_freq
+        color = green if abs(error) < 0.05 else yellow if abs(error) < 0.1 else red
+        print('| {!r:<9} '.format(word)
+            + '| {:>4} = {:>6.2%} '.format(count, observed_freq)
+            + '| {:>4} = {:>6.2%} '.format(samples, sampled_freq)
+            + '| {}{:>+7.2%}{} |'.format(color, error, reset))
+    print(divider)
     print()
 
 
