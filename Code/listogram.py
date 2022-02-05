@@ -18,10 +18,9 @@ class Listogram(list):
         """Increase frequency count of given word by given count amount."""
         index = self._index(word)
         if index != None:
-          current_count = self[index][1]
-          self[index] = (word, current_count + count)
+          self[index][1] += 1
         else:
-          self.append((word.lower(), count))
+          self.append([word.lower(), count])
           self.types += 1
         self.tokens += count
 
