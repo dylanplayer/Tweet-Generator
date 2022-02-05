@@ -2,9 +2,10 @@ from sys import argv
 import tokens
 import random
 
-def sample(length, filename='test_text.txt', type='l'):
+def sample(length, filename='test_text.txt', type='l', histogram=None):
   sample = []
-  histogram = tokens.histogram(filename)
+  if histogram == None:
+    histogram = tokens.histogram(filename)
   words = list(histogram.keys())
   weights = list(histogram.values())
   for i in range(length):
