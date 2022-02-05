@@ -1,9 +1,9 @@
 from flask import Flask, render_template
-import sentence
+import sentence as sentence
 import os
 
 app = Flask(__name__)
-TEXT_FILE = 'musk.txt'
+TEXT_FILE = 'data/sample.txt'
 
 @app.route('/')
 def index():

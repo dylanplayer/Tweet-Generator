@@ -1,10 +1,8 @@
 from __future__ import division, print_function  # Python 2 and 3 compatibility
 import random
-from tokens import histogram
 
 class Dictogram(dict):
     """Dictogram is a histogram implemented as a subclass of the dict type."""
-
     def __init__(self, word_list=None):
         """Initialize this histogram as a new dict and count given words."""
         super(Dictogram, self).__init__()
@@ -33,6 +31,9 @@ class Dictogram(dict):
         each word's probability of being chosen by its observed frequency."""
         words = list(self.keys())
         weights = list(self.values())
+        temp = list(zip(words, weights))
+        random.shuffle(temp)
+        words, weights = zip(*temp)
         random_number = random.randint(0, self.tokens)
         count = 0
         for index, weight in enumerate(weights):

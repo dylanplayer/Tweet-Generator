@@ -1,5 +1,3 @@
-#!python
-
 from listogram import Listogram
 import unittest
 # Python 2 and 3 compatibility: unittest module renamed this assertion method
