@@ -3,8 +3,6 @@ from dictogram import Dictogram
 class Markov(dict):
   def __init__(self, histogram, word_list):
     super(Markov, self).__init__()
-    self.types = 0
-    self.tokens = 0
     for current_word in histogram:
       following_words = []
       for i in range(len(word_list)):

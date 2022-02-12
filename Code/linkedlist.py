@@ -1,12 +1,12 @@
 class Node(object):
   def __init__(self, data):
-      """Initialize this node with the given data."""
-      self.data = data
-      self.next = None
+    """Initialize this node with the given data."""
+    self.data = data
+    self.next = None
 
   def __repr__(self):
-      """Return a string representation of this node."""
-      return f'Node({self.data})'
+    """Return a string representation of this node."""
+    return f'Node({self.data})'
 
 
 class LinkedList:
@@ -16,14 +16,14 @@ class LinkedList:
     self.tail = None  # Last node
     # Append given items
     if items is not None:
-        for item in items:
-            self.append(item)
+      for item in items:
+        self.append(item)
 
   def __repr__(self):
     """Return a string representation of this linked list."""
     ll_str = ""
     for item in self.items():
-        ll_str += f'({item}) -> '
+      ll_str += f'({item}) -> '
     return ll_str
 
   def items(self):
@@ -35,9 +35,9 @@ class LinkedList:
     node = self.head  # O(1) time to assign new variable
     # Loop until node is None, which is one node too far past tail
     while node is not None:  # Always n iterations because no early return
-        items.append(node.data)  # O(1) time (on average) to append to list
-        # Skip to next node to advance forward in linked list
-        node = node.next  # O(1) time to reassign variable
+      items.append(node.data)  # O(1) time (on average) to append to list
+      # Skip to next node to advance forward in linked list
+      node = node.next  # O(1) time to reassign variable
     # Now list contains items from all nodes
     return items  # O(1) time to return list
 
@@ -48,37 +48,91 @@ class LinkedList:
   def length(self):
     """Return the length of this linked list by traversing its nodes.
     TODO: Running time: O(n) Why and under what conditions?"""
-    # TODO: Loop through all nodes and count one for each
-
+    length = 0
+    current = self.head
+    while current != None:
+      length += 1
+      current = current.next
+    return length
 
   def append(self, item):
     """Insert the given item at the tail of this linked list.
     TODO: Running time: O(???) Why and under what conditions?"""
-    # TODO: Create new node to hold given item
-    # TODO: If self.is_empty() == True set the head and the tail to the new node
-    # TODO: Else append node after tail
+    node = Node(item)
+    if self.head == None:
+      self.head = node
+      self.tail = node
+    else:
+      self.tail.next = node
+      self.tail = node
 
   def prepend(self, item):
-      """Insert the given item at the head of this linked list.
-      TODO: Running time: O(???) Why and under what conditions?"""
-      # TODO: Create new node to hold given item
-      # TODO: Prepend node before head, if it exists
+    """Insert the given item at the head of this linked list.
+    TODO: Running time: O(???) Why and under what conditions?"""
+    node = Node(item)
+    if self.length() == 0:
+      self.head = node
+      self.tail = node
+    else:
+      node.next = self.head
+      self.head = node
+
+  def _find_node(self, item):
+    """Return an item from this linked list if it is present.
+    TODO: Best case running time: O(???) Why and under what conditions?
+    TODO: Worst case running time: O(???) Why and under what conditions?"""
+    if self.length() > 0:
+      current = self.head
+      while current != None:
+        if current.data == item:
+          return current
+        elif current.next == None:
+          break
+        current = current.next
+    raise ValueError('item not found: {}'.format(item))
 
   def find(self, item):
-      """Return an item from this linked list if it is present.
-      TODO: Best case running time: O(???) Why and under what conditions?
-      TODO: Worst case running time: O(???) Why and under what conditions?"""
-      # TODO: Loop through all nodes to find item, if present return True otherwise False
+    """Return an item from this linked list if it is present.
+    TODO: Best case running time: O(???) Why and under what conditions?
+    TODO: Worst case running time: O(???) Why and under what conditions?"""
+    if self.length() > 0:
+      current = self.head
+      while current != None:
+        if current.data == item:
+          return True
+        elif current.next == None:
+          return False
+        current = current.next
+
+  def _find_previous(self, node):
+    if self.length() > 0:
+      current = self.head
+      while current != None:
+        if current.next == node:
+          return current
+        current = current.next
 
   def delete(self, item):
-      """Delete the given item from this linked list, or raise ValueError.
-      TODO: Best case running time: O(???) Why and under what conditions?
-      TODO: Worst case running time: O(???) Why and under what conditions?"""
-      # TODO: Loop through all nodes to find one whose data matches given item
-      # TODO: Update previous node to skip around node with matching data
-      # TODO: Otherwise raise error to tell user that delete has failed
-      # Hint: raise ValueError('Item not found: {}'.format(item))
+    """Delete the given item from this linked list, or raise ValueError.
+    TODO: Best case running time: O(???) Why and under what conditions?
+    TODO: Worst case running time: O(???) Why and under what conditions?"""
+    if self.head and self.head.data == item:
+      if self.head.next:
+        self.head = self.head.next
+      else:
+        self.head = None
+        self.tail = None
+    else:
+      node = self._find_node(item)
+      # if node == None:
+      #   raise ValueError('item not found: {}'.format(item))
+      previous = self._find_previous(node)
+      previous.next = node.next
+      if previous.next == None:
+        self.tail = previous
 
 if __name__ == "__main__":
   my_ll = LinkedList(["A", "B", "C"])
+  my_ll.delete("A")
+  my_ll.delete("A")
   print(my_ll)
