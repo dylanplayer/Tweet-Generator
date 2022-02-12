@@ -32,4 +32,4 @@ if __name__ == '__main__':
       words += line.lower().split()
   histogram = Dictogram(words)
   markov = Markov(histogram, words)
-  print(markov.get_following_words_dictogram('the'))
+  print(markov.get_following_words_dictogram('doge'))

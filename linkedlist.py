@@ -8,7 +8,6 @@ class Node(object):
     """Return a string representation of this node."""
     return f'Node({self.data})'
 
-
 class LinkedList:
   def __init__(self, items=None):
     """Initialize this linked list and append the given items, if any."""
