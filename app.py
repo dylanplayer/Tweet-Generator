@@ -7,7 +7,7 @@ TEXT_FILE = 'data/sample.txt'
 
 @app.route('/')
 def index():
-  return render_template('index.html', title='Musk Tweet', generated_text=sentence.get_sentance(TEXT_FILE, 20))
+  return render_template('index.html', title='Musk Tweet', generated_text=sentence.get_sentance(TEXT_FILE, 6))
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port='3000', debug=True)
