@@ -104,6 +104,15 @@ class LinkedList:
           return False
         current = current.next
 
+  def find_if_matches(self, matching_function):
+    """Return an item from this linked list if it is present."""
+    node = self.head
+    while node:
+        if matching_function(node.data): 
+            return node
+        node = node.next
+    return None
+
   def _find_previous(self, node):
     if self.length() > 0:
       current = self.head
