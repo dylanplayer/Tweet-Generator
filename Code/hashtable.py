@@ -72,24 +72,20 @@ class HashTable(object):
         return node[1]
     raise KeyError(f'Key not found: {key}')
 
-  def getPair(self, key):
+  def getNode(self, key):
     """Return the key and value associated with the given key, or raise KeyError.
     TODO: Running time: O(???) Why and under what conditions?"""
     bucket = self._bucket_index(key)
-    nodes = self.buckets[bucket].items()
-    for node in nodes:
-      if node[0] == key:
-        return node
-    raise KeyError(f'Key not found: {key}')
+    return self.buckets[bucket].find_if_matches(lambda data : data[0] == key)
 
   def set(self, key, value):
     """Insert or update the given key with its associated value.
     TODO: Running time: O(???) Why and under what conditions?"""
-    try: 
-      node = self.getPair(key)
-      node[1] = value
-    except KeyError:
-       self.buckets[self._bucket_index(key)].append([key, value])
+    node = self.getNode(key)
+    if node:
+      node.data = (key, value)
+    else:
+      self.buckets[self._bucket_index(key)].append((key, value))
 
   def delete(self, key):
     """Delete the given key from this hash table, or raise KeyError.
@@ -106,8 +102,5 @@ if __name__ == '__main__':
   ht.set("Tiger", 3)
   ht.set("Cat", 5)
   ht.set("Tiger", 4)
-  print(ht.get("Tiger"))
-  print(ht.contains("Tiger"))
-  print(ht.items())
-  ht.delete("Cat")
+  ht.set("Tiger", 5)
   print('hash table: {}'.format(ht))
