@@ -57,7 +57,7 @@ class LinkedList:
 
   def append(self, item):
     """Insert the given item at the tail of this linked list.
-    TODO: Running time: O(???) Why and under what conditions?"""
+    TODO: Running time: O(1) Why and under what conditions?"""
     node = Node(item)
     if self.head == None:
       self.head = node
@@ -68,7 +68,7 @@ class LinkedList:
 
   def prepend(self, item):
     """Insert the given item at the head of this linked list.
-    TODO: Running time: O(???) Why and under what conditions?"""
+    TODO: Running time: O(1) Why and under what conditions?"""
     node = Node(item)
     if self.length() == 0:
       self.head = node
@@ -79,8 +79,8 @@ class LinkedList:
 
   def _find_node(self, item):
     """Return an item from this linked list if it is present.
-    TODO: Best case running time: O(???) Why and under what conditions?
-    TODO: Worst case running time: O(???) Why and under what conditions?"""
+    TODO: Best case running time: O(1) Why and under what conditions?
+    TODO: Worst case running time: O(n) Why and under what conditions?"""
     if self.length() > 0:
       current = self.head
       while current != None:
@@ -93,8 +93,8 @@ class LinkedList:
 
   def find(self, item):
     """Return an item from this linked list if it is present.
-    TODO: Best case running time: O(???) Why and under what conditions?
-    TODO: Worst case running time: O(???) Why and under what conditions?"""
+    TODO: Best case running time: O(1) Why and under what conditions?
+    TODO: Worst case running time: O(n) Why and under what conditions?"""
     if self.length() > 0:
       current = self.head
       while current != None:
@@ -114,8 +114,8 @@ class LinkedList:
 
   def delete(self, item):
     """Delete the given item from this linked list, or raise ValueError.
-    TODO: Best case running time: O(???) Why and under what conditions?
-    TODO: Worst case running time: O(???) Why and under what conditions?"""
+    TODO: Best case running time: O(1) Why and under what conditions?
+    TODO: Worst case running time: O(n) Why and under what conditions?"""
     if self.head and self.head.data == item:
       if self.head.next:
         self.head = self.head.next
@@ -124,8 +124,6 @@ class LinkedList:
         self.tail = None
     else:
       node = self._find_node(item)
-      # if node == None:
-      #   raise ValueError('item not found: {}'.format(item))
       previous = self._find_previous(node)
       previous.next = node.next
       if previous.next == None:
