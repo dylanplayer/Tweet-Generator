@@ -12,7 +12,7 @@ markov = create_markov(histogram, words)
 
 @app.route('/')
 def index():
-  return render_template('index.html', title='Musk Tweet', generated_text=get_sentance(histogram, markov, 3))
+  return render_template('index.html', title='Musk Tweet', generated_text=get_sentance(histogram, markov, 5))
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port='3000', debug=True)

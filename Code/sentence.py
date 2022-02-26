@@ -23,7 +23,7 @@ def get_words_list(filename):
         if char not in PUNCTUATION:
           line += char
       words += line.lower().split()
-  words = [words[i] + " " + words[i+1] + " " + words[i+2] for i in range(0, len(words)-1, 3)]
+  words = [words[i] + " " + words[i+1] + " " + words[i+2] + " " + words[i+3] for i in range(0, len(words)-3, 4)]
   print('Words List Done')
   return words
 
