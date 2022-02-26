@@ -27,4 +27,4 @@ def cleaner(filename):
         data.write(word + ' ')
 
 if __name__ == '__main__':
-  cleaner('musk.txt')
+  cleaner('data/sample.txt')
