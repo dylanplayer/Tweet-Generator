@@ -1,3 +1,4 @@
+import json
 from dictogram import Dictogram
 
 class Markov(dict):
@@ -20,6 +21,14 @@ class Markov(dict):
   def get_following_words_dictogram(self, word):
     return self[word]
 
+  def dump(self):
+    with open('markov.json', 'w') as file:
+      json.dump(self, file)
+
+  def load():
+    with open('markov.json') as file:
+      return json.load(file)
+
 if __name__ == '__main__':
   PUNCTUATION = '''!()-[]{};:'"\…,<>./?@#$%‼^&*_~”„“‥'''
   words = []
@@ -30,6 +39,7 @@ if __name__ == '__main__':
         if char not in PUNCTUATION:
           line += char
       words += line.lower().split()
+  words = [words[i] + " " + words[i+1] for i in range(0, len(words)-1, 2)]
   histogram = Dictogram(words)
   markov = Markov(histogram, words)
-  print(markov.get_following_words_dictogram('the'))
+  markov.dump()
