@@ -3,7 +3,7 @@ import random
 
 class Dictogram(dict):
     """Dictogram is a histogram implemented as a subclass of the dict type."""
-    def __init__(self, word_list=None):
+    def __init__(self, word_list=None, dict=None):
         """Initialize this histogram as a new dict and count given words."""
         super(Dictogram, self).__init__()
         self.types = 0  # Count of distinct word types in this histogram
@@ -11,6 +11,9 @@ class Dictogram(dict):
         # Count words in given list, if any
         if word_list is not None:
             for word in word_list:
+                self.add_count(word)
+        if dict is not None:
+            for word in dict.keys():
                 self.add_count(word)
 
     def add_count(self, word, count=1):
