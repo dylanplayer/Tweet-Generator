@@ -1,5 +1,6 @@
 from os.path import exists
 import json
+from tokens import tokenize
 from dictogram import Dictogram
 
 class Markov(dict):
@@ -37,15 +38,6 @@ class Markov(dict):
     return self[word]
 
 if __name__ == '__main__':
-  PUNCTUATION = '''!()-[]{};:'"\…,<>./?@#$%‼^&*_~”„“‥'''
-  words = []
-  with open('./data/sample.txt', 'r') as text:
-    for raw_line in text:
-      line = ''
-      for char in raw_line:
-        if char not in PUNCTUATION:
-          line += char
-      words += line.lower().split()
-  words = [words[i] + " " + words[i+1] for i in range(0, len(words)-1, 2)]
+  words = tokenize()
   histogram = Dictogram(words)
   markov = Markov(histogram, words)
