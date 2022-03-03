@@ -78,3 +78,7 @@ button:hover {
   cursor: pointer;
   background-color: #1da0f2b7;
 }
+
+#tweet-button {
+  height: fit-content;
+}
