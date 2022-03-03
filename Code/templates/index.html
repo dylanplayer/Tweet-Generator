@@ -9,9 +9,13 @@
         <p class="tweet-username">@muskbot</p>
       </div>
       <div class="tweet-content">
-        <p class="tweet-text">{{ generated_text }}</p>
+        <p class="tweet-text" name="sentence">{{ generated_text }}</p>
       </div>
     </div>
+    <form action="/tweet" method="POST">
+      <input type="hidden" name="sentence" value="{{ generated_text }}">
+      <button type="submit" id="tweet-button">Tweet</button>
+    </form>
   </div>
   <div class="button-container">
     <button id="generate">Generate</button>
